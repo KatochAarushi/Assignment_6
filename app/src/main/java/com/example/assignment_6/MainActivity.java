@@ -8,7 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity implements BooksFragment.BooksListener {
+public class MainActivity extends AppCompatActivity implements BooksFragment.BooksListener,
+        BookDetailsFragment.OnBackClickedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,28 @@ public class MainActivity extends AppCompatActivity implements BooksFragment.Boo
     }
 
     @Override
+    public void onBackClicked() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
     public void onBookSelected(Book book) {
 
+        BookDetailsFragment detailsFragment =
+                new BookDetailsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("BOOK", book);
+
+        detailsFragment.setArguments(bundle);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(
+                        R.id.fragmentContainerView,
+                        detailsFragment
+                )
+                .addToBackStack(null)
+                .commit();
     }
 }
