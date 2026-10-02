@@ -1,5 +1,4 @@
-package edu.uncc.assignment09;
-
+package com.example.assignment_6;
 import java.io.Serializable;
 
 public class Book implements Serializable {
